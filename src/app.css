@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after {
+    border-radius: 0px !important;
+  }
+
+  body {
+    @apply bg-river-white text-river-black overflow-x-hidden;
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .winamp-border {
+    border: 1px solid #000000;
+  }
+  
+  .winamp-card {
+    @apply bg-river-white rounded-card p-spacing-24;
+    border: 1px solid #000000;
+  }
+  
+  .winamp-btn {
+    @apply bg-river-red text-river-white rounded-btn px-spacing-24 py-spacing-12 font-semibold transition-all duration-200;
+    border: 1px solid #E2211C;
+  }
+  
+  .winamp-btn:hover {
+    @apply bg-river-white text-river-red border-river-red scale-105;
+  }
+  
+  .winamp-btn-ghost {
+    @apply bg-transparent text-river-black rounded-btn px-spacing-24 py-spacing-12 font-semibold transition-all duration-200;
+    border: 1px solid #000000;
+  }
+  
+  .winamp-btn-ghost:hover {
+    @apply bg-river-black text-river-white scale-105;
+  }
+  
+  .grid-12 {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 24px;
+  }
+  
+  .parallax-bg {
+    background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB_tk96w1vKOYOQGzwRZL9sJZX7nj136mYm8DHWZuTxkTuVhLBmIaKUgxL4s6MwdTTh3Io6NWUaiTVZwZZHO8d-kjBALuYH4BVlY1s1Pxt0CRYMBvu5ROqk1NvhsoDsJo2zoqoSO89u5zwGfxzfv--LEWlhlgHd9lq5nEYTaoQ7iBq1bv4TGQpplAXClOTtgYzTrFifI2kup60scEzceFO4DZCS3M5-5MN-H7II6zsfAXlrD_gz2hzoM7b04jRWGiwDV5wdB2KFS4Fl');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes float-delayed {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 8s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.animate-float-slow {
+  animation: float 10s ease-in-out infinite;
+}
