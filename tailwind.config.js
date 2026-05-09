@@ -86,7 +86,7 @@ export default {
         "display": ["Epilogue", "sans-serif"],
         "heading-lg": ["Epilogue", "sans-serif"],
         "subheading": ["Epilogue", "sans-serif"],
-        "caption": ["Public Sans", "sans-serif"],
+        "caption": ["sans-serif"],
         "heading": ["Epilogue", "sans-serif"]
       },
       fontSize: {

@@ -5,6 +5,7 @@
     text: string;
     variant?: 'primary' | 'ghost' | 'black';
     href?: string;
+    target?: string;
     type?: 'button' | 'submit';
     ariaLabel?: string;
     class?: string;
@@ -16,6 +17,7 @@
     text,
     variant = 'primary',
     href = undefined,
+    target = undefined,
     type = 'button',
     ariaLabel = undefined,
     class: customClass = '',
@@ -50,12 +52,14 @@
   <a
     bind:this={buttonEl}
     {href}
+    {target}
+    rel={target === '_blank' ? 'noopener noreferrer' : undefined}
     class="w-full flex items-center justify-between px-4 py-2 overflow-hidden relative cursor-pointer font-semibold transition-all duration-300 md:max-w-[15rem] group min-h-[44px] {variantClasses} {customClass}"
     aria-label={ariaLabel || text}
     onmouseenter={() => isHovered = true}
     onmouseleave={() => isHovered = false}
   >
-    <span class="font-mono text-[12px] uppercase invisible select-none mr-8" aria-hidden="true">
+    <span class="font-sans text-[12px] uppercase invisible select-none mr-8" aria-hidden="true">
       {text}
     </span>
 
@@ -71,14 +75,14 @@
 
     <span
       style="transform: translate(0px, {isHovered ? '150%' : '-50%'});"
-      class="font-mono text-[12px] uppercase absolute right-4 top-1/2 transition-transform duration-500 ease-in-out z-10"
+      class="font-sans text-[12px] uppercase absolute right-4 top-1/2 transition-transform duration-500 ease-in-out z-10"
     >
       {text}
     </span>
 
     <span
       style="transform: translate(0px, {isHovered ? '-50%' : '-250%'});"
-      class="font-mono text-[12px] uppercase absolute left-4 top-1/2 transition-transform duration-500 ease-in-out z-10 pointer-events-none"
+      class="font-sans text-[12px] uppercase absolute left-4 top-1/2 transition-transform duration-500 ease-in-out z-10 pointer-events-none"
     >
       {text}
     </span>
@@ -93,7 +97,7 @@
     onmouseenter={() => isHovered = true}
     onmouseleave={() => isHovered = false}
   >
-    <span class="font-mono text-[12px] uppercase invisible select-none mr-8" aria-hidden="true">
+    <span class="font-sans text-[12px] uppercase invisible select-none mr-8" aria-hidden="true">
       {text}
     </span>
 
@@ -109,19 +113,16 @@
 
     <span
       style="transform: translate(0px, {isHovered ? '150%' : '-50%'});"
-      class="font-mono text-[12px] uppercase absolute right-4 top-1/2 transition-transform duration-500 ease-in-out z-10"
+      class="font-sans text-[12px] uppercase absolute right-4 top-1/2 transition-transform duration-500 ease-in-out z-10"
     >
       {text}
     </span>
 
     <span
       style="transform: translate(0px, {isHovered ? '-50%' : '-250%'});"
-      class="font-mono text-[12px] uppercase absolute left-4 top-1/2 transition-transform duration-500 ease-in-out z-10 pointer-events-none"
+      class="font-sans text-[12px] uppercase absolute left-4 top-1/2 transition-transform duration-500 ease-in-out z-10 pointer-events-none"
     >
       {text}
     </span>
   </button>
 {/if}
-
-<style>
-</style>

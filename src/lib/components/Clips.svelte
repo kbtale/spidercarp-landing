@@ -1,48 +1,150 @@
-<section class="px-spacing-24 py-spacing-40 max-w-7xl mx-auto border-b border-river-black" id="clips">
-  <div class="grid-12 mb-spacing-24 items-end">
-    <div class="col-span-12 md:col-span-8">
-      <h2 class="font-heading-lg text-heading-lg text-river-black uppercase">Clips de Kick</h2>
+<script lang="ts">
+  import { onMount } from "svelte";
+  import Button from "./Button.svelte";
+  import juanferClip from "../../assets/JuanferClip.mp4";
+
+  const tiktoks = [
+    {
+      id: "7280990549757218053",
+      url: "https://www.tiktok.com/@spidercarp23/video/7280990549757218053",
+    },
+    {
+      id: "7637345327443430673",
+      url: "https://www.tiktok.com/@spidercarp23/video/7637345327443430673",
+    },
+    {
+      id: "7634747504772320528",
+      url: "https://www.tiktok.com/@spidercarp23/video/7634747504772320528",
+    },
+  ];
+
+  onMount(() => {
+    const script = document.createElement("script");
+    script.src = "https://www.tiktok.com/embed.js";
+    script.async = true;
+    document.body.appendChild(script);
+    return () => {
+      script.remove();
+    };
+  });
+</script>
+
+<section
+  class="px-spacing-24 py-spacing-40 max-w-7xl mx-auto border-b border-river-black"
+  id="clips"
+>
+  <div class="mb-spacing-32 text-center md:text-left">
+    <h2
+      class="font-display font-bold text-4xl md:text-5xl text-river-black uppercase leading-none tracking-tighter"
+    >
+      TRANSMISIÓN EN <span class="text-river-red">VIVO</span>
+    </h2>
+  </div>
+
+  <div
+    class="w-full max-w-4xl mx-auto aspect-video mb-16 border border-river-black bg-river-black"
+  >
+    <iframe
+      src="https://player.kick.com/spidercarp23?autoplay=false&muted=true"
+      class="w-full h-full border-none"
+      allowfullscreen
+      title="Spidercarp Kick Live Stream"
+    >
+    </iframe>
+  </div>
+
+  <div class="mb-spacing-32 text-center md:text-left">
+    <h2
+      class="font-display font-bold text-4xl md:text-5xl text-river-black uppercase leading-none tracking-tighter"
+    >
+      CLIPS <span class="text-river-red">DE KICK</span>
+    </h2>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center mb-16">
+    <div
+      class="col-span-12 md:col-span-7 border border-river-black bg-river-black aspect-video overflow-hidden"
+    >
+      <video
+        src={juanferClip}
+        class="w-full h-full object-cover"
+        controls
+        preload="metadata"
+      >
+        <track kind="captions" />
+      </video>
     </div>
-    <div class="col-span-12 md:col-span-4 flex md:justify-end mt-4 md:mt-0">
-      <a class="text-river-red font-bold hover:underline flex items-center gap-1 focus:ring-2 focus:ring-offset-2 focus:ring-river-red outline-none" href="/">Ver Todos <span class="material-symbols-outlined">arrow_forward</span></a>
+
+    <div
+      class="col-span-12 md:col-span-5 flex flex-col justify-center text-center md:text-left space-y-4"
+    >
+      <h3
+        class="font-display font-bold text-3xl md:text-4xl text-river-black uppercase leading-none tracking-tighter"
+      >
+        MIRÁ TODOS LOS CLIPS
+      </h3>
+      <p class="font-sans text-on-surface text-base max-w-md">
+        Disfrutá de las mejores reacciones, debates calientes y momentos
+        históricos directamente desde el canal oficial de Spidercarp en Kick.
+      </p>
+      <div class="pt-2 flex justify-center md:justify-start">
+        <Button
+          text="Ver en Kick.com"
+          variant="ghost"
+          href="https://kick.com/spidercarp23/clips"
+          target="_blank"
+        >
+          {#snippet icon()}
+            <span class="material-symbols-outlined">launch</span>
+          {/snippet}
+        </Button>
+      </div>
     </div>
   </div>
-  
-  <div class="grid-12">
-    <button class="col-span-12 md:col-span-8 winamp-card p-0 overflow-hidden group flex flex-col h-[400px] text-left focus:ring-2 focus:ring-offset-2 focus:ring-river-red outline-none" aria-label="Play Clip: Gol sobre la hora - Superclásico">
-      <div class="relative h-full w-full">
-        <img alt="A wide, high-impact photograph of a massive football stadium erupting in celebration" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 grayscale group-hover:grayscale-0" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNmGyUkwHB1_BqkAk10DEF6ntHXKC6u5GUBZVNAXtWYZa3tLt0zUyoqPO8poGJdypr4HcgTdRaFT04ceggoYbl3UHy8R593QNxEcABAfdH1VUAjRh74zK0CQPo7xBChYAuk5QfPJmNR_FTStvGvdhChL8FDnAiXLwVYIw8lXsxtNyjTDe9K9g6NhebtLmqQWJOypJ1EVqVHlOduqsL8AyruQSx3PSo0MA8BBbPxNn8CXr4SnFT7Ke_sd0b3nXX1ReystDWPZ8xyeh1"/>
-        <div class="absolute inset-0 bg-river-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <span class="material-symbols-outlined text-river-white text-6xl" style="font-variation-settings: 'FILL' 1;">play_circle</span>
-        </div>
+
+  <div class="mb-spacing-32 text-center md:text-left">
+    <h2
+      class="font-display font-bold text-4xl md:text-5xl text-river-black uppercase leading-none tracking-tighter"
+    >
+      CONTENIDO EN <span class="text-river-red">TIKTOK</span>
+    </h2>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+    {#each tiktoks as tiktok, i}
+      <div
+        class="w-full border border-river-black bg-river-white p-4 overflow-hidden flex justify-center min-h-[580px]"
+      >
+        <blockquote
+          class="tiktok-embed"
+          cite={tiktok.url}
+          data-video-id={tiktok.id}
+          style="max-width: 605px; min-width: 325px; margin: 0 auto; width: 100%;"
+        >
+          <section>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              title="@spidercarp23"
+              href="https://www.tiktok.com/@spidercarp23?refer=embed"
+              >@spidercarp23</a
+            >
+          </section>
+        </blockquote>
       </div>
-      <div class="p-spacing-16 border-t border-river-black bg-river-white flex justify-between items-center z-10 w-full">
-        <div>
-          <span class="inline-block bg-river-red text-river-white text-[10px] uppercase px-2 py-1 rounded-full mb-1 font-bold tracking-wider">Reacción Épica</span>
-          <h3 class="font-heading text-heading text-river-black">Gol sobre la hora - Superclásico</h3>
-        </div>
-        <span class="font-caption text-caption text-river-black opacity-60">1.2M Vistas</span>
-      </div>
-    </button>
-    
-    <div class="col-span-12 md:col-span-4 flex flex-col gap-spacing-24 h-[400px]">
-      <button class="winamp-card p-0 overflow-hidden group flex-1 flex flex-col text-left focus:ring-2 focus:ring-offset-2 focus:ring-river-red outline-none" aria-label="Play Clip: Rage Quit en el FIFA">
-        <div class="relative flex-grow w-full">
-          <img alt="A tight, expressive portrait of a fan reacting to a crucial goal" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOOG18F8sha-JEY3JDsAipBLH6TNh0d_jnNO02rwX33exNhC8nrwz3n-txJx15NnHwS80wE4rjbGpwEQvrGtwsRwrL4nrzSRTLOLULulqVEFBjS-oZPnNlXmo4thkhborYN-arP5gG7rQzqfZMhc4tvPH9LrO7opcvIkO0S1iza60g9B4_hUU34lsjP-EHSGK1QMF_U4B-v4F2VVGFx16koJSoQmQDzOIu-woViiUvB_qLbLT8RPBA5ltOoCiDq9uNmEf3sktG8IkV"/>
-        </div>
-        <div class="p-spacing-12 border-t border-river-black bg-river-white w-full">
-          <h3 class="font-subheading text-subheading text-river-black truncate">Rage Quit en el FIFA</h3>
-        </div>
-      </button>
-      
-      <button class="winamp-card p-0 overflow-hidden group flex-1 flex flex-col text-left focus:ring-2 focus:ring-offset-2 focus:ring-river-red outline-none" aria-label="Play Clip: Tier List de Camisetas">
-        <div class="relative flex-grow w-full">
-          <img alt="A stylized, architectural shot of a silver trophy being lifted" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2DqqOsHmW85rVOOSctwVWfGI5k4fO6UZAjtzmalZuFI54nXowSmG9qnFtbL57wyfI4dvmk2FDZsKwEer5TxQXd8Z_hCc_ipXJ_JPm5m5ZFBHMkF6dqaP3Y1Ty5PqTIWyUe2QLGpo4Iu5jSJ6oGR7wpjnx4FAz1wNkF-zajNq-3mBF6eg6nzVxVXfDlrzIcbUZh7eVahpJ-8DQwPWyxpjl3Knn7JDsiZ993CNhu0WZvm0oMX6Q2ofUI7Fb9jXPRIP1WV-NhRNdr49_"/>
-        </div>
-        <div class="p-spacing-12 border-t border-river-black bg-river-white w-full">
-          <h3 class="font-subheading text-subheading text-river-black truncate">Tier List de Camisetas</h3>
-        </div>
-      </button>
-    </div>
+    {/each}
+  </div>
+
+  <div class="flex justify-center mt-12">
+    <Button
+      text="Ir al Canal de TikTok"
+      variant="primary"
+      href="https://tiktok.com/@SpiderCarp23"
+      target="_blank"
+    >
+      {#snippet icon()}
+        <span class="material-symbols-outlined">arrow_forward</span>
+      {/snippet}
+    </Button>
   </div>
 </section>

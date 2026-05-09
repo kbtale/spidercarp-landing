@@ -15,7 +15,7 @@
         El destino digital definitivo para los hinchas de River Plate. Reacciones en vivo, análisis táctico, mucho humo y la mejor comunidad de la red.
       </p>
       <div class="flex gap-4 pt-4">
-        <Button text="Ver en Vivo (Kick)" variant="primary">
+        <Button text="Ver en Vivo (Kick)" variant="primary" href="https://kick.com/spidercarp23" target="_blank">
           {#snippet icon()}
             <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
           {/snippet}
@@ -65,10 +65,6 @@
             <img alt="Tertiary stream setup shot" class="w-full h-full object-cover transform skew-x-12 scale-150 grayscale group-hover/strip:grayscale-0 transition-all duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNmGyUkwHB1_BqkAk10DEF6ntHXKC6u5GUBZVNAXtWYZa3tLt0zUyoqPO8poGJdypr4HcgTdRaFT04ceggoYbl3UHy8R593QNxEcABAfdH1VUAjRh74zK0CQPo7xBChYAuk5QfPJmNR_FTStvGvdhChL8FDnAiXLwVYIw8lXsxtNyjTDe9K9g6NhebtLmqQWJOypJ1EVqVHlOduqsL8AyruQSx3PSo0MA8BBbPxNn8CXr4SnFT7Ke_sd0b3nXX1ReystDWPZ8xyeh1"/>
           </div>
         </div>
-      </div>
-      
-      <div class="absolute bottom-0 right-0 md:bottom-10 md:right-10 z-30 bg-river-red text-river-white px-6 py-3 font-heading text-heading uppercase font-bold rounded-btn transform -rotate-6 winamp-border shadow-lg animate-pulse hover:scale-110 transition-transform">
-        ¡EN DIRECTO!
       </div>
     </div>
   </div>

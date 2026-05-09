@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Button from './Button.svelte';
+
   let isMenuOpen = false;
 
   function toggleMenu() {
@@ -26,7 +28,11 @@
       <a class="text-on-surface font-medium hover:text-river-red transition-colors duration-200 font-heading-lg text-heading-lg md:text-heading font-heading focus:ring-2 focus:ring-river-red outline-none" href="#paladar">Paladar</a>
     </div>
     <div class="hidden md:flex col-span-3 justify-end items-center">
-      <a class="winamp-btn hover:opacity-80 transition-all focus:ring-2 focus:ring-offset-2 focus:ring-river-red outline-none" href="/">Unite al Stream</a>
+      <Button text="Unite al Stream" variant="primary" href="https://kick.com/spidercarp23" target="_blank">
+        {#snippet icon()}
+          <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+        {/snippet}
+      </Button>
     </div>
   </div>
   
@@ -36,7 +42,11 @@
       <a class="text-on-surface font-medium hover:text-river-red font-heading text-xl" href="#tweets" on:click={toggleMenu}>Tweets</a>
       <a class="text-on-surface font-medium hover:text-river-red font-heading text-xl" href="#comunidad" on:click={toggleMenu}>Comunidad</a>
       <a class="text-on-surface font-medium hover:text-river-red font-heading text-xl" href="#paladar" on:click={toggleMenu}>Paladar</a>
-      <a class="winamp-btn text-center mt-4" href="/">Unite al Stream</a>
+      <Button text="Unite al Stream" variant="primary" href="https://kick.com/spidercarp23" target="_blank">
+        {#snippet icon()}
+          <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+        {/snippet}
+      </Button>
     </div>
   {/if}
 </nav>
