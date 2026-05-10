@@ -100,7 +100,7 @@
   <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
     <div class="flex items-center flex-shrink-0">
       <a
-        class="flex items-center gap-2 focus:ring-2 focus:ring-river-red outline-none"
+        class="flex items-center gap-2 outline-none"
         href="/"
         onclick={(e) => scrollToSection("inicio", e)}
       >
@@ -122,7 +122,7 @@
       {#each menuItems as item}
         <a
           id="nav-link-{item.id}"
-          class="text-sm lg:text-base font-heading font-semibold uppercase tracking-wider focus:ring-2 focus:ring-river-red outline-none transition-colors duration-300 pb-2 {(hoveredSection ??
+          class="text-sm lg:text-base font-heading font-semibold uppercase tracking-wider outline-none transition-colors duration-300 pb-2 {(hoveredSection ??
             activeSection) === item.id
             ? 'text-river-red font-bold'
             : 'text-on-surface font-medium hover:text-river-red'} whitespace-nowrap"

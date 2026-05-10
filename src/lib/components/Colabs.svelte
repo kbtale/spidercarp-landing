@@ -8,7 +8,6 @@
   class="px-spacing-24 py-spacing-40 max-w-7xl mx-auto border-b-[3px] border-river-black bg-river-white"
   id="colaboraciones"
 >
-  <!-- Main Section Header -->
   <div class="mb-spacing-32 text-center md:text-left">
     <h2
       class="font-display font-bold text-display text-river-black uppercase leading-none tracking-tighter"
@@ -17,13 +16,11 @@
     </h2>
   </div>
 
-  <!-- Colabs y Bardo List -->
   <div class="font-display max-w-6xl mx-auto text-center py-6 relative">
-    <!-- Micho's Sticker -->
     <button
       type="button"
       onclick={() => (isModalOpen = true)}
-      class="absolute -left-12 md:-left-28 lg:-left-36 -bottom-12 z-20 h-28 md:h-36 lg:h-44 w-auto transform rotate-[-8deg] hover:rotate-[6deg] hover:scale-115 transition-all duration-300 drop-shadow-2xl cursor-pointer focus:outline-none"
+      class="absolute -left-12 md:-left-28 lg:-left-36 -bottom-12 z-20 h-28 md:h-36 lg:h-44 w-auto transform rotate-[-8deg] hover:rotate-[6deg] hover:scale-115 transition-all duration-300 drop-shadow-2xl cursor-pointer bg-transparent border-0 border-none p-0 outline-none focus:outline-none focus:ring-0 focus:ring-transparent focus:border-none active:outline-none active:border-none"
       aria-label="Abrir modal de disculpa de Micho"
     >
       <img
@@ -102,7 +99,6 @@
     </div>
   </div>
 
-  <!-- Paladar Riverplatense -->
   <div
     class="grid-12 items-center font-display pt-16 border-t border-river-black/10 mt-12"
   >
@@ -149,30 +145,26 @@
 </section>
 
 {#if isModalOpen}
-  <div
-    class="fixed inset-0 bg-river-black/45 backdrop-blur-md z-[100] flex items-center justify-center p-4"
-    role="button"
-    tabindex="0"
-    onclick={() => (isModalOpen = false)}
-    onkeydown={(e) => { if (e.key === 'Escape') isModalOpen = false; }}
-  >
-    <!-- Modal Box: Brutalist styled card with 3px border and bold shadow -->
+  <div class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <button
+      type="button"
+      onclick={() => (isModalOpen = false)}
+      class="absolute inset-0 bg-river-black/45 backdrop-blur-md cursor-default border-none outline-none focus:outline-none p-0 m-0 active:border-none focus:border-none"
+      aria-label="Cerrar modal"
+    ></button>
     <div
-      class="bg-river-white border-[3px] border-river-black p-6 md:p-8 w-full max-w-md relative shadow-[8px_8px_0px_rgba(0,0,0,1)] transform scale-100 transition-all duration-300"
-      role="document"
-      onclick={(e) => e.stopPropagation()}
-      onkeydown={(e) => e.stopPropagation()}
+      class="bg-river-white border-[3px] border-river-black p-6 md:p-8 w-full max-w-md relative shadow-[8px_8px_0px_rgba(0,0,0,1)] transform scale-100 transition-all duration-300 z-10"
+      role="dialog"
+      aria-modal="true"
     >
-      <!-- Close button -->
       <button
-        class="absolute top-3 right-3 text-river-black hover:text-river-red transition-colors duration-200 focus:ring-2 focus:ring-river-red outline-none flex items-center justify-center"
+        class="absolute top-3 right-3 text-river-black hover:text-river-red transition-colors duration-200 outline-none flex items-center justify-center"
         aria-label="Cerrar modal"
         onclick={() => (isModalOpen = false)}
       >
         <span class="material-symbols-outlined font-bold">close</span>
       </button>
 
-      <!-- Modal Content -->
       <div class="text-center mt-6 font-display">
         <h3 class="font-display font-black text-2xl md:text-3xl text-river-black uppercase leading-tight tracking-tight mb-2">
           "Pídanle perdón <br />al micho"
@@ -181,7 +173,6 @@
           — BocaEnLaCopa
         </p>
 
-        <!-- Interactive Options -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center w-full">
           <Button
             text="Perdón, Micho"
