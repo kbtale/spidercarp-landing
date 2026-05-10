@@ -56,6 +56,7 @@
     rel={target === '_blank' ? 'noopener noreferrer' : undefined}
     class="w-full flex items-center justify-between px-4 py-2 overflow-hidden relative cursor-pointer font-semibold transition-all duration-300 md:max-w-[15rem] group min-h-[44px] {variantClasses} {customClass}"
     aria-label={ariaLabel || text}
+    onclick={onclick}
     onmouseenter={() => isHovered = true}
     onmouseleave={() => isHovered = false}
   >

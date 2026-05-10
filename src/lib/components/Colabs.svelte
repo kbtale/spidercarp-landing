@@ -36,7 +36,7 @@
     </div>
 
     <div
-      class="col-span-12 md:col-span-6 winamp-card flex flex-col justify-center items-center text-center p-12 border-4 border-dashed border-river-black hover:shadow-2xl transition-all duration-300"
+      class="col-span-12 md:col-span-6 winamp-card flex flex-col justify-center items-center text-center p-12 hover:shadow-2xl transition-all duration-300"
     >
       <span class="material-symbols-outlined text-6xl text-river-black mb-4"
         >handshake</span
