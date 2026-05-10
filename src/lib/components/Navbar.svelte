@@ -1,38 +1,124 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import Button from './Button.svelte';
 
-  let isMenuOpen = false;
+  let isMenuOpen = $state(false);
+  let activeSection = $state('inicio');
+  let hoveredSection = $state<string | null>(null);
+
+  let sliderLeft = $state(0);
+  let sliderWidth = $state(0);
+
+  const menuItems = [
+    { id: 'inicio', label: 'Inicio', href: '#inicio' },
+    { id: 'clips', label: 'Clips', href: '#clips' },
+    { id: 'tweets', label: 'Tweets', href: '#tweets' },
+    { id: 'colabs', label: 'Colabs', href: '#colabs' },
+    { id: 'comunidad', label: 'Comunidad', href: '#comunidad' }
+  ];
+
+  const sectionIdsToObserve = ['inicio', 'clips', 'tweets', 'colabs', 'paladar', 'comunidad'];
 
   function toggleMenu() {
     isMenuOpen = !isMenuOpen;
   }
+
+  function scrollToSection(id: string, e: MouseEvent) {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+      activeSection = id === 'paladar' ? 'colabs' : id;
+      if (isMenuOpen) {
+        isMenuOpen = false;
+      }
+    }
+  }
+
+  function updateSlider() {
+    const targetId = hoveredSection ?? activeSection;
+    const activeEl = document.getElementById(`nav-link-${targetId}`);
+    if (activeEl) {
+      sliderLeft = activeEl.offsetLeft;
+      sliderWidth = activeEl.offsetWidth;
+    }
+  }
+
+  $effect(() => {
+    const _dummy1 = activeSection;
+    const _dummy2 = hoveredSection;
+    updateSlider();
+  });
+
+  onMount(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-40% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          if (id === 'paladar') {
+            activeSection = 'colabs';
+          } else {
+            activeSection = id;
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    sectionIdsToObserve.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        observer.observe(el);
+      }
+    });
+
+    window.addEventListener('resize', updateSlider);
+    setTimeout(updateSlider, 50);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', updateSlider);
+    };
+  });
 </script>
 
 <nav class="fixed top-0 w-full z-50 bg-river-white border-b border-river-black px-spacing-24 py-spacing-16">
-  <div class="max-w-7xl mx-auto grid-12 items-center">
-    <div class="col-span-12 md:col-span-3 flex items-center justify-between md:justify-start">
-      <a class="flex items-center gap-2 focus:ring-2 focus:ring-river-red outline-none" href="/">
+  <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+    <div class="flex items-center flex-shrink-0">
+      <a class="flex items-center gap-2 focus:ring-2 focus:ring-river-red outline-none" href="/" onclick={(e) => scrollToSection('inicio', e)}>
         <img src="/Spidercarp-logo.webp" alt="SPIDERCARP Logo" class="h-8 w-auto object-contain" />
         <span class="text-heading font-heading font-bold text-river-red uppercase tracking-tighter">SPIDERCARP</span>
       </a>
-      <button 
-         class="md:hidden p-2" 
-         aria-label="Toggle menu" 
-         aria-expanded={isMenuOpen}
-         on:click={toggleMenu}
-      >
-        <span class="material-symbols-outlined">{isMenuOpen ? 'close' : 'menu'}</span>
-      </button>
     </div>
     
-    <div class="hidden md:flex col-span-5 justify-center gap-spacing-16">
-      <a class="text-river-red font-bold border-b-2 border-river-red pb-1 font-heading-lg text-heading-lg md:text-heading font-heading focus:ring-2 focus:ring-river-red outline-none" href="#clips">Clips</a>
-      <a class="text-on-surface font-medium hover:text-river-red transition-colors duration-200 font-heading-lg text-heading-lg md:text-heading font-heading focus:ring-2 focus:ring-river-red outline-none" href="#tweets">Tweets</a>
-      <a class="text-on-surface font-medium hover:text-river-red transition-colors duration-200 font-heading-lg text-heading-lg md:text-heading font-heading focus:ring-2 focus:ring-river-red outline-none" href="#comunidad">Comunidad</a>
-      <a class="text-on-surface font-medium hover:text-river-red transition-colors duration-200 font-heading-lg text-heading-lg md:text-heading font-heading focus:ring-2 focus:ring-river-red outline-none" href="#paladar">Paladar</a>
+    <div class="hidden lg:flex items-center justify-center gap-6 xl:gap-8 relative py-1 flex-grow">
+      {#each menuItems as item}
+        <a 
+          id="nav-link-{item.id}"
+          class="font-heading-lg text-heading-lg md:text-heading font-heading focus:ring-2 focus:ring-river-red outline-none transition-colors duration-300 pb-2 {(hoveredSection ?? activeSection) === item.id ? 'text-river-red font-bold' : 'text-on-surface font-medium hover:text-river-red'} whitespace-nowrap" 
+          href={item.href}
+          onclick={(e) => scrollToSection(item.id, e)}
+          onmouseenter={() => hoveredSection = item.id}
+          onmouseleave={() => hoveredSection = null}
+        >
+          {item.label}
+        </a>
+      {/each}
+      
+      <div 
+        class="absolute bottom-0 h-[4px] bg-river-red transition-all duration-300 ease-out rounded-full"
+        style="left: {sliderLeft}px; width: {sliderWidth}px;"
+      ></div>
     </div>
 
-    <div class="hidden md:flex col-span-4 justify-end items-center gap-6">
+    <div class="hidden lg:flex items-center gap-6 flex-shrink-0">
       <div class="flex items-center gap-4">
         <a href="https://kick.com/spidercarp23" target="_blank" rel="noopener noreferrer" aria-label="Kick" class="text-river-black hover:text-river-red transition-colors duration-200">
           <svg viewBox="0 0 512 512" class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
@@ -71,14 +157,28 @@
         {/snippet}
       </Button>
     </div>
+
+    <button 
+       class="lg:hidden p-2" 
+       aria-label="Toggle menu" 
+       aria-expanded={isMenuOpen}
+       onclick={toggleMenu}
+    >
+      <span class="material-symbols-outlined">{isMenuOpen ? 'close' : 'menu'}</span>
+    </button>
   </div>
   
   {#if isMenuOpen}
-    <div class="md:hidden absolute top-full left-0 w-full bg-river-white border-b border-river-black py-6 px-spacing-24 flex flex-col gap-4 shadow-lg">
-      <a class="text-river-red font-bold font-heading text-xl" href="#clips" on:click={toggleMenu}>Clips</a>
-      <a class="text-on-surface font-medium hover:text-river-red font-heading text-xl" href="#tweets" on:click={toggleMenu}>Tweets</a>
-      <a class="text-on-surface font-medium hover:text-river-red font-heading text-xl" href="#comunidad" on:click={toggleMenu}>Comunidad</a>
-      <a class="text-on-surface font-medium hover:text-river-red font-heading text-xl" href="#paladar" on:click={toggleMenu}>Paladar</a>
+    <div class="lg:hidden absolute top-full left-0 w-full bg-river-white border-b border-river-black py-6 px-spacing-24 flex flex-col gap-4 shadow-lg">
+      {#each menuItems as item}
+        <a 
+          class="font-heading text-xl transition-colors duration-200 {activeSection === item.id ? 'text-river-red font-bold' : 'text-on-surface font-medium hover:text-river-red'}" 
+          href={item.href} 
+          onclick={(e) => scrollToSection(item.id, e)}
+        >
+          {item.label}
+        </a>
+      {/each}
       
       <div class="flex items-center gap-6 py-4 border-t border-b border-river-black/10">
         <a href="https://kick.com/spidercarp23" target="_blank" rel="noopener noreferrer" aria-label="Kick" class="text-river-black hover:text-river-red transition-colors duration-200">
@@ -111,7 +211,7 @@
           </svg>
         </a>
       </div>
-
+      
       <Button text="Unite al Stream" variant="primary" href="https://kick.com/spidercarp23" target="_blank" onclick={toggleMenu}>
         {#snippet icon()}
           <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>

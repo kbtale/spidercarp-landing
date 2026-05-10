@@ -67,6 +67,7 @@
 </style>
 
 <section
+  id="inicio"
   class="relative px-spacing-24 py-spacing-40 md:py-32 border-b border-river-black overflow-hidden min-h-[72vh] flex items-center"
 >
   <div class="absolute inset-0 parallax-bg opacity-20 filter grayscale"></div>
@@ -136,7 +137,7 @@
             class="w-full h-full overflow-hidden winamp-border bg-river-black shadow-2xl relative z-10"
           >
             <div
-              class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] pointer-events-none z-20 opacity-30"
+              class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] pointer-events-none z-20 opacity-55 group-hover/strip:opacity-75 transition-opacity duration-300"
             ></div>
 
             <div
@@ -160,7 +161,7 @@
             class="w-full h-full overflow-hidden winamp-border bg-river-black shadow-2xl relative z-10"
           >
             <div
-              class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] pointer-events-none z-20 opacity-30"
+              class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] pointer-events-none z-20 opacity-55 group-hover/strip:opacity-75 transition-opacity duration-300"
             ></div>
 
             <div
@@ -186,7 +187,7 @@
             class="w-full h-full overflow-hidden winamp-border bg-river-black shadow-2xl relative z-10"
           >
             <div
-              class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] pointer-events-none z-20 opacity-30"
+              class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] pointer-events-none z-20 opacity-55 group-hover/strip:opacity-75 transition-opacity duration-300"
             ></div>
 
             <div

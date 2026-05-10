@@ -30,7 +30,7 @@
   </div>
 </section>
 
-<section class="relative px-spacing-24 py-spacing-40 md:py-32 max-w-7xl mx-auto text-center font-display">
+<section id="comunidad" class="relative px-spacing-24 py-spacing-40 md:py-32 max-w-7xl mx-auto text-center font-display">
   <img 
     src="/P2.png" 
     alt="P2 sticker" 
