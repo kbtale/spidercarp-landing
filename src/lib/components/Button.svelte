@@ -54,7 +54,7 @@
     {href}
     {target}
     rel={target === '_blank' ? 'noopener noreferrer' : undefined}
-    class="w-full flex items-center justify-between px-4 py-2 overflow-hidden relative cursor-pointer font-semibold transition-all duration-300 md:max-w-[15rem] group min-h-[44px] {variantClasses} {customClass}"
+    class="w-full flex items-center justify-between px-4 py-2 overflow-hidden relative cursor-pointer font-semibold transition-all duration-300 max-w-[15rem] mx-auto md:mx-0 group min-h-[44px] {variantClasses} {customClass}"
     aria-label={ariaLabel || text}
     onclick={onclick}
     onmouseenter={() => isHovered = true}
@@ -92,7 +92,7 @@
   <button
     bind:this={buttonEl}
     {type}
-    class="w-full flex items-center justify-between px-4 py-2 overflow-hidden relative cursor-pointer font-semibold transition-all duration-300 md:max-w-[15rem] group min-h-[44px] {variantClasses} {customClass}"
+    class="w-full flex items-center justify-between px-4 py-2 overflow-hidden relative cursor-pointer font-semibold transition-all duration-300 max-w-[15rem] mx-auto md:mx-0 group min-h-[44px] {variantClasses} {customClass}"
     aria-label={ariaLabel || text}
     onclick={onclick}
     onmouseenter={() => isHovered = true}

@@ -30,7 +30,7 @@
 </script>
 
 <section
-  class="px-spacing-24 py-spacing-40 max-w-7xl mx-auto border-b border-river-black"
+  class="relative px-spacing-24 py-spacing-40 max-w-7xl mx-auto border-b border-river-black"
   id="clips"
 >
   <div class="mb-spacing-32 text-center md:text-left">
@@ -41,16 +41,24 @@
     </h2>
   </div>
 
-  <div
-    class="w-full max-w-4xl mx-auto aspect-video mb-16 border border-river-black bg-river-black"
-  >
-    <iframe
-      src="https://player.kick.com/spidercarp23?autoplay=false&muted=true"
-      class="w-full h-full border-none"
-      allowfullscreen
-      title="Spidercarp Kick Live Stream"
+  <div class="relative w-full max-w-4xl mx-auto mb-16">
+    <img 
+      src="/P6.png" 
+      alt="P6 sticker" 
+      class="absolute -left-6 md:-left-16 bottom-0 z-20 h-[60%] md:h-[95%] w-auto object-contain pointer-events-none drop-shadow-2xl" 
+    />
+    
+    <div
+      class="w-full aspect-video border border-river-black bg-river-black relative z-10"
     >
-    </iframe>
+      <iframe
+        src="https://player.kick.com/spidercarp23?autoplay=false&muted=true"
+        class="w-full h-full border-none"
+        allowfullscreen
+        title="Spidercarp Kick Live Stream"
+      >
+      </iframe>
+    </div>
   </div>
 
   <div class="mb-spacing-32 text-center md:text-left">
@@ -69,6 +77,10 @@
         src={juanferClip}
         class="w-full h-full object-cover"
         controls
+        autoplay
+        muted
+        playsinline
+        loop
         preload="metadata"
       >
         <track kind="captions" />
@@ -76,8 +88,13 @@
     </div>
 
     <div
-      class="col-span-12 md:col-span-5 flex flex-col justify-center text-center md:text-left space-y-4"
+      class="col-span-12 md:col-span-5 flex flex-col justify-center items-center md:items-start text-center md:text-left space-y-4"
     >
+      <img 
+        src="/P4.png" 
+        alt="P4 sticker" 
+        class="w-24 md:w-32 h-auto object-contain mx-auto md:mx-0 mb-2 md:-mt-16 drop-shadow-xl relative z-20" 
+      />
       <h3
         class="font-display font-bold text-3xl md:text-4xl text-river-black uppercase leading-none tracking-tighter"
       >
@@ -87,7 +104,7 @@
         Disfrutá de las mejores reacciones, debates calientes y momentos
         históricos directamente desde el canal oficial de Spidercarp en Kick.
       </p>
-      <div class="pt-2 flex justify-center md:justify-start">
+      <div class="pt-2 flex justify-center md:justify-start w-full">
         <Button
           text="Ver en Kick.com"
           variant="ghost"
