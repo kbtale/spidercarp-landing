@@ -12,8 +12,8 @@
       COLABS Y <span class="text-river-red inline-block">BARDO</span>
     </h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mt-8">
-      <div class="flex items-start gap-4 text-left py-6 px-4 border-b md:border-b-0 md:border-r border-river-black/10 last:border-0">
+    <div class="flex flex-col md:flex-row items-stretch mt-8">
+      <div class="flex-1 flex items-start gap-4 text-left py-6 md:pr-8 border-b md:border-b-0 border-river-black/10">
         <span class="text-river-red font-display font-bold text-3xl leading-none">01</span>
         <div>
           <h3 class="text-heading font-bold text-river-black uppercase tracking-tight">
@@ -25,19 +25,19 @@
         </div>
       </div>
 
-      <div class="flex items-start gap-4 text-left py-6 px-4 border-b md:border-b-0 md:border-r border-river-black/10 last:border-0">
+      <div class="flex-1 flex items-start gap-4 text-left py-6 md:px-8 border-b md:border-b-0 md:border-l border-river-black/10">
         <span class="text-river-red font-display font-bold text-3xl leading-none">02</span>
         <div>
           <h3 class="text-heading font-bold text-river-black uppercase tracking-tight">
             Invitados Especiales
           </h3>
           <p class="text-subheading text-on-surface text-sm opacity-80 mt-2 leading-relaxed">
-            Ex jugadores, periodistas de renombre y otros streamers de la escena se suman a la mesa para hablar del Más Grande.
+            Figuras y streamers de la escena se suman a la mesa para hablar del Más Grande.
           </p>
         </div>
       </div>
 
-      <div class="flex items-start gap-4 text-left py-6 px-4">
+      <div class="flex-1 flex items-start gap-4 text-left py-6 md:pl-8 md:border-l border-river-black/10">
         <span class="text-river-red font-display font-bold text-3xl leading-none">03</span>
         <div>
           <h3 class="text-heading font-bold text-river-black uppercase tracking-tight">

@@ -96,8 +96,8 @@
       <p
         class="font-subheading text-subheading text-on-surface max-w-xl bg-river-white/80 p-4 rounded-lg winamp-border backdrop-blur-sm shadow-sm"
       >
-        El destino digital definitivo para los hinchas de River Plate.
-        Reacciones en vivo, análisis táctico, mucho humo y la mejor comunidad de
+        El destino digital para los hinchas de River Plate. Reacciones en vivo,
+        análisis de los partidos, una que otra termeada y la mejor comunidad de
         la red.
       </p>
       <div class="flex gap-4 pt-4">
