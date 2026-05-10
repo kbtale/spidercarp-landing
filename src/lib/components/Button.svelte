@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
+  import type { Snippet } from "svelte";
 
   interface Props {
     text: string;
-    variant?: 'primary' | 'ghost' | 'black';
+    variant?: "primary" | "ghost" | "black";
     href?: string;
     target?: string;
-    type?: 'button' | 'submit';
+    type?: "button" | "submit";
     ariaLabel?: string;
     class?: string;
     icon?: Snippet;
@@ -15,14 +15,14 @@
 
   let {
     text,
-    variant = 'primary',
+    variant = "primary",
     href = undefined,
     target = undefined,
-    type = 'button',
+    type = "button",
     ariaLabel = undefined,
-    class: customClass = '',
+    class: customClass = "",
     icon,
-    onclick
+    onclick,
   }: Props = $props();
 
   let buttonEl: HTMLElement | null = $state(null);
@@ -40,11 +40,11 @@
   });
 
   let variantClasses = $derived(
-    variant === 'primary'
-      ? 'bg-river-red text-river-white hover:bg-river-white hover:text-river-red hover:border-river-red border border-river-red'
-      : variant === 'ghost'
-        ? 'bg-transparent text-river-black border-river-black hover:bg-river-black hover:text-river-white border'
-        : 'bg-river-black text-river-white hover:bg-river-white hover:text-river-black hover:border-river-black border border-river-black'
+    variant === "primary"
+      ? "bg-river-red text-river-white hover:bg-river-white hover:text-river-red hover:border-river-red border border-river-red"
+      : variant === "ghost"
+        ? "bg-transparent text-river-black border-river-black hover:bg-river-black hover:text-river-white border"
+        : "bg-river-black text-river-white hover:bg-river-white hover:text-river-black hover:border-river-black border border-river-black",
   );
 </script>
 
@@ -53,14 +53,17 @@
     bind:this={buttonEl}
     {href}
     {target}
-    rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+    rel={target === "_blank" ? "noopener noreferrer" : undefined}
     class="w-full flex items-center justify-between px-4 py-2 overflow-hidden relative cursor-pointer font-semibold transition-all duration-300 max-w-[15rem] mx-auto md:mx-0 group min-h-[44px] {variantClasses} {customClass}"
     aria-label={ariaLabel || text}
-    onclick={onclick}
-    onmouseenter={() => isHovered = true}
-    onmouseleave={() => isHovered = false}
+    {onclick}
+    onmouseenter={() => (isHovered = true)}
+    onmouseleave={() => (isHovered = false)}
   >
-    <span class="font-sans text-[12px] uppercase invisible select-none mr-8" aria-hidden="true">
+    <span
+      class="font-sans text-[12px] uppercase invisible select-none mr-8"
+      aria-hidden="true"
+    >
       {text}
     </span>
 
@@ -94,11 +97,14 @@
     {type}
     class="w-full flex items-center justify-between px-4 py-2 overflow-hidden relative cursor-pointer font-semibold transition-all duration-300 max-w-[15rem] mx-auto md:mx-0 group min-h-[44px] {variantClasses} {customClass}"
     aria-label={ariaLabel || text}
-    onclick={onclick}
-    onmouseenter={() => isHovered = true}
-    onmouseleave={() => isHovered = false}
+    {onclick}
+    onmouseenter={() => (isHovered = true)}
+    onmouseleave={() => (isHovered = false)}
   >
-    <span class="font-sans text-[12px] uppercase invisible select-none mr-8" aria-hidden="true">
+    <span
+      class="font-sans text-[12px] uppercase invisible select-none mr-8"
+      aria-hidden="true"
+    >
       {text}
     </span>
 

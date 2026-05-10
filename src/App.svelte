@@ -4,7 +4,7 @@
   import Clips from './lib/components/Clips.svelte';
   import Tweets from './lib/components/Tweets.svelte';
   import Colabs from './lib/components/Colabs.svelte';
-  import Paladar from './lib/components/Paladar.svelte';
+  import Comunidad from './lib/components/Comunidad.svelte';
   import Footer from './lib/components/Footer.svelte';
 </script>
 
@@ -16,7 +16,7 @@
     <Clips />
     <Tweets />
     <Colabs />
-    <Paladar />
+    <Comunidad />
   </main>
   
   <Footer />

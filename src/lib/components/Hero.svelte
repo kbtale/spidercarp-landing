@@ -8,11 +8,13 @@
     "MONUMENTAL",
     "MUNDIAL",
     "FUTBOLERA",
-    "SPIDERCARP"
+    "SPIDERCARP",
   ];
-  
+
   let currentIndex = $state(0);
-  let prevIndex = $derived(currentIndex === 0 ? words.length - 1 : currentIndex - 1);
+  let prevIndex = $derived(
+    currentIndex === 0 ? words.length - 1 : currentIndex - 1,
+  );
 
   onMount(() => {
     const interval = setInterval(() => {
@@ -22,53 +24,9 @@
   });
 </script>
 
-<style>
-  @keyframes slideInUp {
-    from {
-      transform: translate3d(0, 88%, 0);
-    }
-    to {
-      transform: translate3d(0, 0, 0);
-    }
-  }
-
-  @keyframes slideOutUp {
-    from {
-      transform: translate3d(0, 0, 0);
-    }
-    to {
-      transform: translate3d(0, -88%, 0);
-    }
-  }
-
-  .animate-slide-in {
-    will-change: transform;
-    transform: translate3d(0, 88%, 0);
-    animation: slideInUp 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .animate-slide-out {
-    will-change: transform;
-    transform: translate3d(0, 0, 0);
-    animation: slideOutUp 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .layered-black {
-    text-shadow: 
-      4px 4px 0px rgba(0, 0, 0, 0.15),
-      8px 8px 0px rgba(0, 0, 0, 0.05);
-  }
-
-  .layered-red {
-    text-shadow: 
-      4px 4px 0px rgba(239, 68, 68, 0.2),
-      8px 8px 0px rgba(239, 68, 68, 0.08);
-  }
-</style>
-
 <section
   id="inicio"
-  class="relative px-spacing-24 py-spacing-40 md:py-32 border-b border-river-black overflow-hidden min-h-[72vh] flex items-center"
+  class="relative px-spacing-24 py-spacing-40 md:py-32 border-b-[3px] border-river-black overflow-hidden min-h-[72vh] flex items-center"
 >
   <div class="absolute inset-0 parallax-bg opacity-20 filter grayscale"></div>
   <div
@@ -82,12 +40,18 @@
       >
         <span class="layered-black">VIVÍ LA</span> <br />
         <span class="layered-black">LOCURA</span> <br />
-        <span class="inline-grid grid-cols-1 grid-rows-1 overflow-hidden h-[1.15em] relative align-bottom pe-4">
+        <span
+          class="inline-grid grid-cols-1 grid-rows-1 overflow-hidden h-[1.15em] relative align-bottom pe-4"
+        >
           {#key currentIndex}
-            <span class="col-start-1 row-start-1 text-river-red inline-block layered-red whitespace-nowrap animate-slide-out">
+            <span
+              class="col-start-1 row-start-1 text-river-red inline-block layered-red whitespace-nowrap animate-slide-out"
+            >
               {words[prevIndex]}
             </span>
-            <span class="col-start-1 row-start-1 text-river-red inline-block layered-red whitespace-nowrap animate-slide-in">
+            <span
+              class="col-start-1 row-start-1 text-river-red inline-block layered-red whitespace-nowrap animate-slide-in"
+            >
               {words[currentIndex]}
             </span>
           {/key}
@@ -125,12 +89,14 @@
     <div
       class="col-span-12 md:col-span-5 relative mt-8 md:mt-0 flex justify-center items-center h-[420px] md:h-[520px]"
     >
-      <div class="flex gap-4 transform -skew-x-12 md:-translate-y-16 md:-translate-x-6">
+      <div
+        class="flex gap-4 transform -skew-x-12 md:-translate-y-16 md:-translate-x-6"
+      >
         <div
           class="relative w-28 md:w-32 h-72 md:h-96 transform -translate-y-6 z-10 group/strip"
         >
           <div
-            class="absolute inset-0 border border-river-red translate-x-3 translate-y-3 pointer-events-none z-0 transition-transform duration-300 group-hover/strip:translate-x-1 group-hover/strip:translate-y-1"
+            class="absolute inset-0 border-[3px] border-river-red translate-x-3 translate-y-3 pointer-events-none z-0 transition-transform duration-300 group-hover/strip:translate-x-1 group-hover/strip:translate-y-1"
           ></div>
 
           <div
@@ -154,7 +120,7 @@
 
         <div class="relative w-28 md:w-32 h-96 md:h-[28rem] z-20 group/strip">
           <div
-            class="absolute inset-0 border border-river-black translate-x-3 translate-y-3 pointer-events-none z-0 transition-transform duration-300 group-hover/strip:translate-x-1 group-hover/strip:translate-y-1"
+            class="absolute inset-0 border-[3px] border-river-black translate-x-3 translate-y-3 pointer-events-none z-0 transition-transform duration-300 group-hover/strip:translate-x-1 group-hover/strip:translate-y-1"
           ></div>
 
           <div
@@ -180,7 +146,7 @@
           class="relative w-28 md:w-32 h-72 md:h-96 transform translate-y-6 z-10 group/strip"
         >
           <div
-            class="absolute inset-0 border border-river-red translate-x-3 translate-y-3 pointer-events-none z-0 transition-transform duration-300 group-hover/strip:translate-x-1 group-hover/strip:translate-y-1"
+            class="absolute inset-0 border-[3px] border-river-red translate-x-3 translate-y-3 pointer-events-none z-0 transition-transform duration-300 group-hover/strip:translate-x-1 group-hover/strip:translate-y-1"
           ></div>
 
           <div
@@ -205,9 +171,53 @@
     </div>
   </div>
 
-  <img 
-    src="/Spidercarp.png" 
-    alt="Spidercarp" 
+  <img
+    src="/Spidercarp.png"
+    alt="Spidercarp"
     class="absolute -bottom-[80px] md:-bottom-[10px] right-[2%] md:right-[4%] lg:right-[6%] xl:right-[9%] z-30 h-[68%] md:h-[76%] lg:h-[80%] w-auto object-contain pointer-events-none drop-shadow-2xl"
   />
 </section>
+
+<style>
+  @keyframes slideInUp {
+    from {
+      transform: translate3d(0, 88%, 0);
+    }
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes slideOutUp {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(0, -88%, 0);
+    }
+  }
+
+  .animate-slide-in {
+    will-change: transform;
+    transform: translate3d(0, 88%, 0);
+    animation: slideInUp 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-slide-out {
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    animation: slideOutUp 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .layered-black {
+    text-shadow:
+      4px 4px 0px rgba(0, 0, 0, 0.15),
+      8px 8px 0px rgba(0, 0, 0, 0.05);
+  }
+
+  .layered-red {
+    text-shadow:
+      4px 4px 0px rgba(239, 68, 68, 0.2),
+      8px 8px 0px rgba(239, 68, 68, 0.08);
+  }
+</style>

@@ -16,16 +16,26 @@
   html {
     scroll-behavior: smooth;
   }
+
+  button:focus,
+  a:focus,
+  div:focus,
+  input:focus,
+  textarea:focus,
+  [role="button"]:focus {
+    outline: none;
+    box-shadow: none;
+  }
 }
 
 @layer components {
   .winamp-border {
-    border: 1px solid #000000;
+    border: 3px solid #000000;
   }
   
   .winamp-card {
     @apply bg-river-white rounded-card p-spacing-24;
-    border: 1px solid #000000;
+    border: 3px solid #000000;
   }
   
 
