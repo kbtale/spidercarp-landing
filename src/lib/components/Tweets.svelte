@@ -22,17 +22,25 @@
     </h2>
   </div>
 
-  <div
-    class="max-w-3xl mx-auto h-[600px] border border-river-black bg-river-white p-spacing-16 overflow-y-auto"
-  >
-    <a
-      class="twitter-timeline"
-      data-height="560"
-      data-theme="light"
-      data-chrome="noheader nofooter noborders transparent"
-      href="https://twitter.com/SpiderCarp23"
+  <div class="relative max-w-3xl mx-auto">
+    <img 
+      src="/P8.png" 
+      alt="P8 sticker" 
+      class="absolute -right-6 md:-right-16 bottom-0 z-20 h-[50%] md:h-[80%] w-auto object-contain pointer-events-none drop-shadow-2xl" 
+    />
+
+    <div
+      class="w-full h-[600px] border border-river-black bg-river-white p-spacing-16 overflow-y-auto relative z-10"
     >
-      Cargando tweets en tiempo real de @SpiderCarp23...
-    </a>
+      <a
+        class="twitter-timeline"
+        data-height="560"
+        data-theme="light"
+        data-chrome="noheader nofooter noborders transparent"
+        href="https://twitter.com/SpiderCarp23"
+      >
+        Cargando tweets en tiempo real de @SpiderCarp23...
+      </a>
+    </div>
   </div>
 </section>
