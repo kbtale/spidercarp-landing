@@ -1,5 +1,7 @@
 # Spidercarp Landing
 
+https://github.com/user-attachments/assets/7fb7daeb-882e-4060-b3e7-88ddd048534c
+
 Landing page para el streamer Spidercarp.
 
 ## Tecnologías
