@@ -1,5 +1,6 @@
 <script lang="ts">
   import Button from "./Button.svelte";
+  import { EXTERNAL_LINKS } from "../data/site";
 </script>
 
 <section
@@ -26,12 +27,13 @@
     <Button
       text="Suscribirse en Kick"
       variant="primary"
-      href="https://kick.com/spidercarp23"
+      href={EXTERNAL_LINKS.kickChannel}
       target="_blank"
     >
       {#snippet icon()}
         <span
           class="material-symbols-outlined"
+          aria-hidden="true"
           style="font-variation-settings: 'FILL' 1;">play_arrow</span
         >
       {/snippet}
@@ -39,11 +41,11 @@
     <Button
       text="Entrar al Discord"
       variant="ghost"
-      href="https://discord.gg/5f4dve8Fd"
+      href={EXTERNAL_LINKS.discord}
       target="_blank"
     >
       {#snippet icon()}
-        <span class="material-symbols-outlined">forum</span>
+        <span class="material-symbols-outlined" aria-hidden="true">forum</span>
       {/snippet}
     </Button>
   </div>

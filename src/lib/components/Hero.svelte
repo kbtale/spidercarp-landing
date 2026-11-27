@@ -1,24 +1,16 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import Button from "./Button.svelte";
-
-  const words = [
-    "MILLONARIA",
-    "RIVERPLATENSE",
-    "MONUMENTAL",
-    "MUNDIAL",
-    "FUTBOLERA",
-    "SPIDERCARP",
-  ];
+  import { EXTERNAL_LINKS, HERO_WORDS } from "../data/site";
 
   let currentIndex = $state(0);
   let prevIndex = $derived(
-    currentIndex === 0 ? words.length - 1 : currentIndex - 1,
+    currentIndex === 0 ? HERO_WORDS.length - 1 : currentIndex - 1,
   );
 
   onMount(() => {
     const interval = setInterval(() => {
-      currentIndex = (currentIndex + 1) % words.length;
+      currentIndex = (currentIndex + 1) % HERO_WORDS.length;
     }, 3000);
     return () => clearInterval(interval);
   });
@@ -47,12 +39,12 @@
             <span
               class="col-start-1 row-start-1 text-river-red inline-block layered-red whitespace-nowrap animate-slide-out"
             >
-              {words[prevIndex]}
+              {HERO_WORDS[prevIndex]}
             </span>
             <span
               class="col-start-1 row-start-1 text-river-red inline-block layered-red whitespace-nowrap animate-slide-in"
             >
-              {words[currentIndex]}
+              {HERO_WORDS[currentIndex]}
             </span>
           {/key}
         </span>
@@ -68,7 +60,7 @@
         <Button
           text="Ver en Vivo (Kick)"
           variant="primary"
-          href="https://kick.com/spidercarp23"
+          href={EXTERNAL_LINKS.kickChannel}
           target="_blank"
         >
           {#snippet icon()}

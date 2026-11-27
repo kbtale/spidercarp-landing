@@ -1,6 +1,7 @@
 <script lang="ts">
   import Button from "./Button.svelte";
   import juanferClip from "../../assets/JuanferClip.mp4";
+  import { EXTERNAL_LINKS } from "../data/site";
 </script>
 
 <section
@@ -26,10 +27,10 @@
       class="w-full aspect-video border-[3px] border-river-black bg-river-black relative z-10"
     >
       <iframe
-        src="https://player.kick.com/spidercarp23?autoplay=false&muted=true"
+        src={EXTERNAL_LINKS.kickPlayer}
         class="w-full h-full border-none"
         allowfullscreen
-        title="Spidercarp Kick Live Stream"
+        title="Transmisión en vivo de Spidercarp en Kick"
       >
       </iframe>
     </div>
@@ -82,7 +83,7 @@
         <Button
           text="Ver en Kick.com"
           variant="ghost"
-          href="https://kick.com/spidercarp23/clips"
+          href={EXTERNAL_LINKS.kickClips}
           target="_blank"
         >
           {#snippet icon()}

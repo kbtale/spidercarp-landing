@@ -75,11 +75,12 @@ export default {
       },
       spacing: {
         "spacing-40": "40px",
-        "spacing-16": "16px",
-        "spacing-4": "4px",
+        "spacing-32": "32px",
         "spacing-24": "24px",
+        "spacing-16": "16px",
+        "spacing-12": "12px",
         "spacing-8": "8px",
-        "spacing-12": "12px"
+        "spacing-4": "4px"
       },
       fontFamily: {
         "body": ["Epilogue", "sans-serif"],
