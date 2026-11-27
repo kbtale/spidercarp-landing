@@ -1,12 +1,21 @@
 <script lang="ts">
+  import {
+    Dialog,
+    DialogBackdrop,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogTitle,
+  } from "@ui-sdk/svelte/dialog";
   import Button from "./Button.svelte";
+  import UiIcon from "./UiIcon.svelte";
   import { COLLABORATIONS, EXTERNAL_LINKS } from "../data/site";
 
   let isModalOpen = $state(false);
 </script>
 
 <section
-  class="px-spacing-24 py-spacing-40 max-w-7xl mx-auto border-b-[3px] border-river-black bg-river-white"
+  class="px-4 sm:px-spacing-24 py-spacing-40 max-w-7xl mx-auto border-b-[3px] border-river-black bg-river-white"
   id="colaboraciones"
 >
   <div class="mb-spacing-32 text-center md:text-left">
@@ -17,41 +26,28 @@
     </h2>
   </div>
 
-  <div class="font-display max-w-6xl mx-auto text-center py-6 relative">
-    <button
-      type="button"
-      onclick={() => (isModalOpen = true)}
-      class="absolute -left-12 md:-left-28 lg:-left-36 -bottom-12 z-20 h-28 md:h-36 lg:h-44 w-auto transform rotate-[-8deg] hover:rotate-[6deg] hover:scale-115 transition-all duration-300 drop-shadow-2xl cursor-pointer bg-transparent border-0 border-none p-0 outline-none focus:outline-none focus:ring-0 focus:ring-transparent focus:border-none active:outline-none active:border-none"
-      aria-label="Abrir modal de disculpa de Micho"
-    >
-      <img
-        src="/Micho.png"
-        alt="Micho sticker"
-        class="w-full h-full object-contain pointer-events-none"
-      />
-    </button>
-
-    <div class="flex flex-col md:flex-row items-stretch mt-4">
+  <div class="font-display max-w-6xl mx-auto text-center py-4 sm:py-6 relative">
+    <div class="flex flex-col md:flex-row items-stretch mt-2">
       {#each COLLABORATIONS as colab, index (colab.number)}
         <div
           class="flex-1 flex items-start gap-4 text-left py-6 {index === 0
             ? 'md:pr-8 border-b md:border-b-0'
             : index === 1
               ? 'md:px-8 border-b md:border-b-0 md:border-l'
-              : 'md:pl-8 md:border-l'} border-river-black/10"
+              : 'md:pl-8 md:border-l'} border-river-black/15"
         >
           <span
-            class="text-river-red font-display font-bold text-3xl leading-none"
+            class="text-river-red font-display font-bold text-3xl leading-none shrink-0"
             >{colab.number}</span
           >
-          <div>
+          <div class="min-w-0">
             <h3
               class="text-heading font-bold text-river-black uppercase tracking-tight"
             >
               {colab.title}
             </h3>
             <p
-              class="text-subheading text-on-surface text-sm opacity-80 mt-2 leading-relaxed"
+              class="text-subheading text-on-surface text-sm opacity-85 mt-2 leading-relaxed"
             >
               {colab.description}
             </p>
@@ -59,12 +55,33 @@
         </div>
       {/each}
     </div>
+
+    <div class="flex justify-end mt-4 lg:mt-6 lg:justify-start">
+      <button
+        type="button"
+        onclick={() => (isModalOpen = true)}
+        aria-haspopup="dialog"
+        aria-expanded={isModalOpen}
+        class="relative z-20 h-24 sm:h-28 lg:h-32 w-auto transform rotate-[-6deg] hover:rotate-[5deg] hover:scale-105 active:scale-95 transition-transform duration-200 drop-shadow-2xl cursor-pointer bg-transparent border-0 p-1 min-w-[44px] min-h-[44px]"
+        aria-label="Abrir modal de disculpa de Micho"
+      >
+        <img
+          src="/Micho.png"
+          alt="Sticker interactivo de Micho"
+          width="160"
+          height="160"
+          loading="lazy"
+          decoding="async"
+          class="w-full h-full object-contain pointer-events-none"
+        />
+      </button>
+    </div>
   </div>
 
   <div
-    class="grid-12 items-center font-display pt-16 border-t border-river-black/10 mt-12"
+    class="grid-12 items-center font-display pt-12 sm:pt-16 border-t-[3px] border-river-black/15 mt-8 sm:mt-12"
   >
-    <div class="col-span-12 md:col-span-6 order-2 md:order-1">
+    <div class="col-span-12 md:col-span-6 order-2 md:order-1 min-w-0">
       <h3
         class="font-display font-bold text-display text-river-black uppercase leading-none mb-4"
       >
@@ -80,19 +97,17 @@
         variant="primary"
         href={EXTERNAL_LINKS.youtubePlaylist}
         target="_blank"
+        class="max-w-none sm:max-w-[15rem]"
       >
         {#snippet icon()}
-          <span
-            class="material-symbols-outlined text-2xl"
-            style="font-variation-settings: 'FILL' 1;">play_arrow</span
-          >
+          <UiIcon name="play" class="w-5 h-5" />
         {/snippet}
       </Button>
     </div>
 
     <div class="col-span-12 md:col-span-6 order-1 md:order-2">
       <div
-        class="w-full aspect-video border-[3px] border-river-black bg-river-black overflow-hidden shadow-lg"
+        class="w-full aspect-video border-[3px] border-river-black bg-river-black overflow-hidden shadow-[6px_6px_0_#000]"
       >
         <iframe
           src={EXTERNAL_LINKS.youtubeEmbed}
@@ -106,70 +121,71 @@
   </div>
 </section>
 
-{#if isModalOpen}
-  <div class="fixed inset-0 z-[100] flex items-center justify-center p-4">
-    <button
-      type="button"
-      onclick={() => (isModalOpen = false)}
-      class="absolute inset-0 bg-river-black/45 backdrop-blur-md cursor-default border-none outline-none focus:outline-none p-0 m-0 active:border-none focus:border-none"
+<Dialog bind:open={isModalOpen}>
+  <DialogBackdrop />
+  <DialogContent
+    class="bg-river-white border-[3px] border-river-black p-6 md:p-8 w-[min(92vw,28rem)] shadow-[8px_8px_0_#000]"
+  >
+    <DialogClose
       aria-label="Cerrar modal"
-    ></button>
-    <div
-      class="bg-river-white border-[3px] border-river-black p-6 md:p-8 w-full max-w-md relative shadow-[8px_8px_0px_rgba(0,0,0,1)] transform scale-100 transition-all duration-300 z-10"
-      role="dialog"
-      aria-modal="true"
+      class="absolute top-3 right-3 min-w-[44px] min-h-[44px] text-river-black hover:text-river-red transition-colors duration-150 inline-flex items-center justify-center cursor-pointer"
     >
-      <button
-        class="absolute top-3 right-3 text-river-black hover:text-river-red transition-colors duration-200 outline-none flex items-center justify-center"
-        aria-label="Cerrar modal"
-        onclick={() => (isModalOpen = false)}
+      <UiIcon name="close" class="w-5 h-5" />
+    </DialogClose>
+
+    <div class="text-center pt-10 font-display">
+      <DialogTitle
+        class="font-display font-black text-2xl md:text-3xl text-river-black uppercase leading-tight tracking-tight mb-2"
       >
-        <span class="material-symbols-outlined font-bold">close</span>
-      </button>
+        "Pídanle perdón <br />al micho"
+      </DialogTitle>
+      <DialogDescription
+        class="font-heading text-sm md:text-base text-river-red font-bold uppercase tracking-wider mb-8"
+      >
+        - BocaEnLaCopa
+      </DialogDescription>
 
-      <div class="text-center mt-6 font-display">
-        <h3 class="font-display font-black text-2xl md:text-3xl text-river-black uppercase leading-tight tracking-tight mb-2">
-          "Pídanle perdón <br />al micho"
-        </h3>
-        <p class="font-heading text-sm md:text-base text-river-red font-bold uppercase tracking-wider mb-8">
-          — BocaEnLaCopa
-        </p>
+      <div
+        class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full"
+      >
+        <Button
+          text="Perdón, Micho"
+          variant="primary"
+          class="w-full sm:w-auto max-w-none"
+          onclick={() => (isModalOpen = false)}
+        >
+          {#snippet icon()}
+            <svg
+              viewBox="0 0 24 24"
+              class="w-5 h-5 fill-current"
+              aria-hidden="true"
+            >
+              <path
+                d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+              />
+            </svg>
+          {/snippet}
+        </Button>
 
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center w-full">
-          <Button
-            text="Perdón, Micho"
-            variant="primary"
-            class="w-full sm:w-auto"
-            onclick={() => (isModalOpen = false)}
-          >
-            {#snippet icon()}
-              <svg
-                viewBox="0 0 24 24"
-                class="w-5 h-5 fill-current"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-              </svg>
-            {/snippet}
-          </Button>
-          <Button
-            text="No"
-            variant="ghost"
-            class="w-full sm:w-auto"
-            onclick={() => (isModalOpen = false)}
-          >
-            {#snippet icon()}
-              <svg
-                viewBox="0 0 24 24"
-                class="w-5 h-5 fill-current"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-              </svg>
-            {/snippet}
-          </Button>
-        </div>
+        <Button
+          text="No"
+          variant="ghost"
+          class="w-full sm:w-auto max-w-none sm:min-w-[8rem]"
+          onclick={() => (isModalOpen = false)}
+        >
+          {#snippet icon()}
+            <svg
+              viewBox="0 0 24 24"
+              class="w-5 h-5 fill-current"
+              aria-hidden="true"
+            >
+              <path
+                d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+              />
+            </svg>
+          {/snippet}
+        </Button>
       </div>
     </div>
-  </div>
-{/if}
+  </DialogContent>
+</Dialog>

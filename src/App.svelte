@@ -8,10 +8,14 @@
   import Footer from "./lib/components/Footer.svelte";
 </script>
 
-<div class="font-body antialiased min-h-screen flex flex-col pt-[80px]">
+<a href="#contenido-principal" class="skip-link">
+  Saltar al contenido principal
+</a>
+
+<div class="font-body antialiased min-h-screen flex flex-col pt-[76px]">
   <Navbar />
 
-  <main id="contenido-principal" class="flex-grow">
+  <main id="contenido-principal" class="flex-grow overflow-x-clip">
     <Hero />
     <Clips />
     <TikToks />
