@@ -1,8 +1,37 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import Button from "./Button.svelte";
+  import LazyEmbed from "./LazyEmbed.svelte";
+  import LiveStatusBadge from "./LiveStatusBadge.svelte";
   import UiIcon from "./UiIcon.svelte";
   import juanferClip from "../../assets/JuanferClip.mp4";
   import { EXTERNAL_LINKS } from "../data/site";
+
+  let clipContainerEl: HTMLElement | null = $state(null);
+  let videoEl: HTMLVideoElement | null = $state(null);
+  let isClipActivated = $state(false);
+
+  onMount(() => {
+    if (typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry && !entry.isIntersecting && videoEl && !videoEl.paused) {
+          videoEl.pause();
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    if (clipContainerEl) {
+      observer.observe(clipContainerEl);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  });
 </script>
 
 <section
@@ -10,13 +39,16 @@
   id="streams"
 >
   <div
-    class="mb-12 lg:mb-spacing-32 flex items-end justify-between gap-4 text-left"
+    class="mb-10 lg:mb-spacing-32 flex flex-wrap items-end justify-between gap-4 text-left"
   >
-    <h2
-      class="font-display font-bold text-heading-lg md:text-5xl text-river-black uppercase leading-none tracking-tighter"
-    >
-      TRANSMISIÓN EN <span class="text-river-red">VIVO</span>
-    </h2>
+    <div class="space-y-3">
+      <h2
+        class="font-display font-bold text-heading-lg md:text-5xl text-river-black uppercase leading-none tracking-tighter"
+      >
+        TRANSMISIÓN EN <span class="text-river-red">VIVO</span>
+      </h2>
+      <LiveStatusBadge />
+    </div>
 
     <img
       src="/P6.png"
@@ -42,16 +74,15 @@
       class="hidden lg:block absolute left-0 bottom-0 z-20 h-[78%] w-auto object-contain pointer-events-none drop-shadow-2xl"
     />
 
-    <div
-      class="w-full aspect-video border-[3px] border-river-black bg-river-black relative z-10 shadow-[6px_6px_0_#000]"
-    >
-      <iframe
+    <div class="relative z-10">
+      <LazyEmbed
         src={EXTERNAL_LINKS.kickPlayer}
-        class="w-full h-full border-none"
-        allowfullscreen
         title="Transmisión en vivo de Spidercarp en Kick"
-      >
-      </iframe>
+        provider="Kick"
+        fallbackUrl={EXTERNAL_LINKS.kickChannel}
+        fallbackCta="Abrir transmisión en Kick"
+        fallbackDescription="Podés ver el stream directo en el canal oficial de Spidercarp en Kick."
+      />
     </div>
   </div>
 
@@ -65,19 +96,58 @@
 
   <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
     <div
-      class="col-span-12 md:col-span-7 border-[3px] border-river-black bg-river-black aspect-video overflow-hidden shadow-[6px_6px_0_#000]"
+      bind:this={clipContainerEl}
+      class="col-span-12 md:col-span-7 border-[3px] border-river-black bg-river-black aspect-video overflow-hidden shadow-[6px_6px_0_#000] relative"
     >
-      <video
-        src={juanferClip}
-        class="w-full h-full object-cover"
-        controls
-        autoplay
-        muted
-        playsinline
-        loop
-        preload="metadata"
-      >
-      </video>
+      {#if isClipActivated}
+        <video
+          bind:this={videoEl}
+          src={juanferClip}
+          class="w-full h-full object-cover"
+          controls
+          autoplay
+          playsinline
+          loop
+          preload="auto"
+        >
+          <track
+            kind="captions"
+            srclang="es"
+            label="Español"
+            src="/clips-juanfer.vtt"
+          />
+        </video>
+      {:else}
+        <div class="relative w-full h-full">
+          <img
+            src="/juanfer.jpg"
+            alt="Vista previa del clip destacado de Juanfer"
+            width="800"
+            height="450"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover object-top filter brightness-75"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-river-black/85 via-river-black/35 to-transparent flex flex-col items-center justify-center p-4 text-center gap-3"
+          >
+            <button
+              type="button"
+              onclick={() => (isClipActivated = true)}
+              aria-label="Reproducir clip destacado de Juanfer"
+              class="inline-flex items-center gap-2.5 min-h-[48px] px-5 py-3 bg-river-red text-river-white border-[3px] border-river-white font-display font-bold text-xs sm:text-sm uppercase tracking-wider shadow-[4px_4px_0_#000] hover:bg-river-black active:scale-[0.97] transition-[transform,background-color] duration-150 cursor-pointer"
+            >
+              <UiIcon name="play" class="w-5 h-5" />
+              <span>Reproducir Clip</span>
+            </button>
+            <span
+              class="font-sans text-[11px] uppercase tracking-wider text-river-white/90 bg-river-black/75 px-2.5 py-1 border border-river-white/30"
+            >
+              Carga bajo demanda · 31 s
+            </span>
+          </div>
+        </div>
+      {/if}
     </div>
 
     <div

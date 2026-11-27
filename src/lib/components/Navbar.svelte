@@ -10,6 +10,7 @@
     DrawerTrigger,
   } from "@ui-sdk/svelte/drawer";
   import Button from "./Button.svelte";
+  import LiveStatusBadge from "./LiveStatusBadge.svelte";
   import SocialLinks from "./SocialLinks.svelte";
   import UiIcon from "./UiIcon.svelte";
   import { EXTERNAL_LINKS, NAV_ITEMS, SITE_META } from "../data/site";
@@ -140,12 +141,12 @@
 
     <div
       bind:this={navListEl}
-      class="hidden lg:flex items-center justify-center gap-6 xl:gap-8 relative py-1 flex-grow"
+      class="hidden lg:flex items-center justify-center gap-4 xl:gap-7 relative py-1 min-w-0"
     >
       {#each NAV_ITEMS as item (item.id)}
         <a
           id="nav-link-{item.id}"
-          class="text-sm lg:text-base font-heading font-semibold uppercase tracking-wider transition-colors duration-200 pb-2 {(hoveredSection ??
+          class="text-xs xl:text-sm font-heading font-semibold uppercase tracking-wider transition-colors duration-200 pb-2 {(hoveredSection ??
             activeSection) === item.id
             ? 'text-river-red font-bold'
             : 'text-on-surface font-medium hover:text-river-red'} whitespace-nowrap"
@@ -166,14 +167,21 @@
       ></div>
     </div>
 
-    <div class="hidden lg:flex items-center gap-4 flex-shrink-0">
-      <SocialLinks tone="dark" size="sm" class="gap-1" />
+    <div class="hidden lg:flex items-center gap-2.5 flex-shrink-0">
+      <LiveStatusBadge compact class="hidden xl:inline-flex" />
+      <SocialLinks
+        tone="dark"
+        size="sm"
+        class="gap-0.5"
+        linkClass="min-w-[34px] min-h-[34px]"
+      />
 
       <Button
         text="Unite al Stream"
         variant="primary"
         href={EXTERNAL_LINKS.kickChannel}
         target="_blank"
+        class="sm:min-w-[11rem]"
       >
         {#snippet icon()}
           <UiIcon name="play" class="w-5 h-5" />
@@ -245,6 +253,8 @@
           </div>
 
           <div class="flex flex-col gap-5 pt-6 border-t-[3px] border-river-black">
+            <LiveStatusBadge class="w-fit" />
+
             <SocialLinks
               tone="dark"
               size="md"
