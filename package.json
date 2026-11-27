@@ -28,5 +28,9 @@
     "typescript": "~6.0.2",
     "vite": "^8.0.10",
     "vitest": "^5.1.2"
+  },
+  "dependencies": {
+    "@ui-sdk/core": "^0.1.0-beta.17",
+    "@ui-sdk/svelte": "^0.1.0-beta.17"
   }
 }

@@ -1,71 +1,158 @@
+@layer ui-sdk;
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --ease-out-expo: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+}
 
 @layer base {
   *, *::before, *::after {
     border-radius: 0px;
   }
 
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (pointer: fine) {
+    html {
+      overscroll-behavior: none;
+    }
+  }
+
   body {
     background-color: #ffffff;
     color: #000000;
-    overflow-x: hidden;
-  }
-  
-  html {
-    scroll-behavior: smooth;
   }
 
-  button:focus,
-  a:focus,
-  div:focus,
-  input:focus,
-  textarea:focus,
-  [role="button"]:focus {
-    outline: none;
-    box-shadow: none;
+  button,
+  a,
+  [role="button"] {
+    touch-action: manipulation;
+  }
+
+  button,
+  [role="button"] {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  section[id] {
+    scroll-margin-top: 84px;
+  }
+
+  :focus-visible {
+    outline: 3px solid #E2211C;
+    outline-offset: 2px;
   }
 }
 
 @layer components {
+  .skip-link {
+    position: fixed;
+    top: -100%;
+    left: 16px;
+    z-index: 120;
+    background-color: #000000;
+    color: #ffffff;
+    border: 3px solid #E2211C;
+    padding: 10px 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+
+  .skip-link:focus-visible {
+    top: 12px;
+  }
+
   .winamp-border {
     border: 3px solid #000000;
   }
-  
+
   .winamp-card {
     background-color: #ffffff;
     padding: 24px;
     border: 3px solid #000000;
   }
-  
 
-  
   .grid-12 {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
     gap: 24px;
   }
-  
+
   .parallax-bg {
     background-image: url('/Monumental.jpg');
-    background-attachment: fixed;
+    background-attachment: scroll;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
   }
+
+  @media (hover: hover) and (min-width: 768px) {
+    .parallax-bg {
+      background-attachment: fixed;
+    }
+  }
+
+  [data-slot="dialog-backdrop"] {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    transition: opacity 200ms var(--ease-out-expo);
+  }
+
+  [data-slot="dialog-backdrop"][data-starting-style],
+  [data-slot="dialog-backdrop"][data-ending-style] {
+    opacity: 0;
+  }
+
+  [data-slot="dialog-content"] {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    height: fit-content;
+    max-height: calc(100dvh - 2rem);
+    transition:
+      opacity 200ms var(--ease-out-expo),
+      transform 220ms var(--ease-out-expo);
+  }
+
+  [data-slot="dialog-content"][data-starting-style],
+  [data-slot="dialog-content"][data-ending-style] {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+
+  [data-slot="dialog-content"][data-ending-style] {
+    transition-duration: 150ms;
+  }
+
+  [data-slot="drawer-backdrop"] {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+  }
 }
 
-body *:focus,
-body *:focus-within,
-body *:active,
-body a:focus,
-body button:focus,
-body [role="button"]:focus {
-  outline: none;
-  box-shadow: none;
-  --tw-ring-width: 0px;
-  --tw-ring-offset-width: 0px;
-  --tw-ring-color: transparent;
-}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

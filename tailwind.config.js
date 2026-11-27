@@ -1,10 +1,12 @@
-/** @type {import('tailwindcss').Config} */
 export default {
   content: [
     "./index.html",
     "./src/**/*.{svelte,js,ts,jsx,tsx}",
   ],
   darkMode: "class",
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   theme: {
     borderRadius: {
       "none": "0px",
@@ -91,14 +93,14 @@ export default {
         "heading": ["Epilogue", "sans-serif"]
       },
       fontSize: {
-        "body": ["15px", { lineHeight: "1.6", letterSpacing: "-0.022em", fontWeight: "400" }],
-        "display": ["69px", { lineHeight: "1.13", letterSpacing: "-0.022em", fontWeight: "700" }],
-        "heading-lg": ["34px", { lineHeight: "1.18", letterSpacing: "-0.022em", fontWeight: "700" }],
-        "subheading": ["19px", { lineHeight: "1.26", letterSpacing: "-0.022em", fontWeight: "500" }],
-        "caption": ["12px", { lineHeight: "1.2", letterSpacing: "-0.022em", fontWeight: "400" }],
-        "heading": ["24px", { lineHeight: "1.33", letterSpacing: "-0.022em", fontWeight: "600" }]
+        "body": ["15px", { lineHeight: "1.6", letterSpacing: "-0.015em", fontWeight: "400" }],
+        "display": ["clamp(1.85rem, 6.2vw, 4.3125rem)", { lineHeight: "1.06", letterSpacing: "-0.025em", fontWeight: "700" }],
+        "heading-lg": ["clamp(1.75rem, 4.5vw, 2.75rem)", { lineHeight: "1.12", letterSpacing: "-0.022em", fontWeight: "700" }],
+        "subheading": ["clamp(1rem, 2.2vw, 1.1875rem)", { lineHeight: "1.35", letterSpacing: "-0.018em", fontWeight: "500" }],
+        "caption": ["12px", { lineHeight: "1.2", letterSpacing: "-0.015em", fontWeight: "400" }],
+        "heading": ["clamp(1.2rem, 2.6vw, 1.5rem)", { lineHeight: "1.28", letterSpacing: "-0.02em", fontWeight: "700" }]
       }
     }
   },
   plugins: [],
-}
+};

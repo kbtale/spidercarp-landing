@@ -1,29 +1,39 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import {
+    Drawer,
+    DrawerBackdrop,
+    DrawerClose,
+    DrawerContent,
+    DrawerDescription,
+    DrawerTitle,
+    DrawerTrigger,
+  } from "@ui-sdk/svelte/drawer";
   import Button from "./Button.svelte";
   import SocialLinks from "./SocialLinks.svelte";
+  import UiIcon from "./UiIcon.svelte";
   import { EXTERNAL_LINKS, NAV_ITEMS, SITE_META } from "../data/site";
+  import { prefersReducedMotion } from "../utils/viewport";
 
   let isMenuOpen = $state(false);
   let activeSection = $state("inicio");
   let hoveredSection = $state<string | null>(null);
 
+  let navListEl: HTMLElement | null = $state(null);
   let sliderLeft = $state(0);
   let sliderWidth = $state(0);
-
-  function toggleMenu() {
-    isMenuOpen = !isMenuOpen;
-  }
 
   function scrollToSection(id: string, e: MouseEvent) {
     e.preventDefault();
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+      el.scrollIntoView({
+        behavior: prefersReducedMotion() ? "auto" : "smooth",
+      });
       activeSection = id;
-      if (isMenuOpen) {
-        isMenuOpen = false;
-      }
+    }
+    if (isMenuOpen) {
+      isMenuOpen = false;
     }
   }
 
@@ -37,6 +47,18 @@
 
   $effect(() => {
     updateSlider(hoveredSection ?? activeSection);
+  });
+
+  $effect(() => {
+    const list = navListEl;
+    if (!list || typeof ResizeObserver === "undefined") return;
+
+    const observer = new ResizeObserver(() => {
+      updateSlider(hoveredSection ?? activeSection);
+    });
+    observer.observe(list);
+
+    return () => observer.disconnect();
   });
 
   onMount(() => {
@@ -64,30 +86,41 @@
       activeSection = activeId;
     };
 
-    const handleResize = () => updateSlider(hoveredSection ?? activeSection);
+    const syncSlider = () => updateSlider(hoveredSection ?? activeSection);
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", syncSlider);
 
     handleScroll();
-    const timer = setTimeout(handleResize, 50);
+    syncSlider();
+
+    let cancelled = false;
+    if (typeof document !== "undefined" && document.fonts?.ready) {
+      document.fonts.ready.then(() => {
+        if (!cancelled) {
+          syncSlider();
+        }
+      });
+    }
 
     return () => {
-      clearTimeout(timer);
+      cancelled = true;
       window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", syncSlider);
     };
   });
 </script>
 
-<nav
-  aria-label="Navegación principal"
-  class="fixed top-0 w-full z-50 bg-river-white border-b-[3px] border-river-black px-spacing-24 py-spacing-16"
+<header
+  class="fixed top-0 left-0 right-0 z-50 bg-river-white border-b-[3px] border-river-black px-4 sm:px-spacing-24 py-3 sm:py-spacing-16"
 >
-  <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+  <nav
+    aria-label="Navegación principal"
+    class="max-w-7xl mx-auto flex items-center justify-between gap-3 sm:gap-4"
+  >
     <div class="flex items-center flex-shrink-0">
       <a
-        class="flex items-center gap-2"
+        class="flex items-center gap-2 min-h-[44px]"
         href="#inicio"
         onclick={(e) => scrollToSection("inicio", e)}
       >
@@ -99,13 +132,14 @@
           class="h-8 w-auto object-contain"
         />
         <span
-          class="text-heading font-heading font-bold text-river-red uppercase tracking-tighter"
+          class="text-lg sm:text-heading font-heading font-bold text-river-red uppercase tracking-tighter"
           translate="no">{SITE_META.brand}</span
         >
       </a>
     </div>
 
     <div
+      bind:this={navListEl}
       class="hidden lg:flex items-center justify-center gap-6 xl:gap-8 relative py-1 flex-grow"
     >
       {#each NAV_ITEMS as item (item.id)}
@@ -126,7 +160,7 @@
       {/each}
 
       <div
-        class="absolute bottom-0 h-[4px] bg-river-red transition-all duration-300 ease-out"
+        class="absolute bottom-0 h-[4px] bg-river-red transition-[left,width] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]"
         style="left: {sliderLeft}px; width: {sliderWidth}px;"
         aria-hidden="true"
       ></div>
@@ -142,65 +176,96 @@
         target="_blank"
       >
         {#snippet icon()}
-          <span
-            class="material-symbols-outlined"
-            aria-hidden="true"
-            style="font-variation-settings: 'FILL' 1;">play_arrow</span
-          >
+          <UiIcon name="play" class="w-5 h-5" />
         {/snippet}
       </Button>
     </div>
 
-    <button
-      type="button"
-      class="lg:hidden min-w-[44px] min-h-[44px] inline-flex items-center justify-center border-[3px] border-river-black bg-river-white text-river-black"
-      aria-label={isMenuOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
-      aria-expanded={isMenuOpen}
-      onclick={toggleMenu}
-    >
-      <span class="material-symbols-outlined" aria-hidden="true"
-        >{isMenuOpen ? "close" : "menu"}</span
-      >
-    </button>
-  </div>
-
-  {#if isMenuOpen}
-    <div
-      class="lg:hidden absolute top-full left-0 w-full bg-river-white border-b-[3px] border-river-black py-6 px-spacing-24 flex flex-col gap-4 shadow-lg"
-    >
-      {#each NAV_ITEMS as item (item.id)}
-        <a
-          class="font-heading text-xl uppercase transition-colors duration-200 {activeSection ===
-          item.id
-            ? 'text-river-red font-bold'
-            : 'text-on-surface font-medium hover:text-river-red'}"
-          href={item.href}
-          aria-current={activeSection === item.id ? "location" : undefined}
-          onclick={(e) => scrollToSection(item.id, e)}
+    <div class="lg:hidden flex items-center">
+      <Drawer bind:open={isMenuOpen} side="right">
+        <DrawerTrigger
+          aria-label="Abrir menú de navegación"
+          class="min-w-[44px] min-h-[44px] inline-flex items-center justify-center border-[3px] border-river-black bg-river-white text-river-black active:scale-[0.96] transition-transform duration-150 cursor-pointer"
         >
-          {item.label}
-        </a>
-      {/each}
+          <UiIcon name="menu" class="w-6 h-6" />
+        </DrawerTrigger>
 
-      <div class="py-3 border-t border-b border-river-black/15">
-        <SocialLinks tone="dark" size="md" class="justify-between" />
-      </div>
+        <DrawerBackdrop />
+        <DrawerContent
+          class="w-[min(86vw,340px)] h-[100dvh] bg-river-white border-l-[3px] border-river-black flex flex-col justify-between p-6 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] overflow-y-auto overscroll-contain shadow-[-8px_0_0_#000]"
+        >
+          <div class="flex flex-col gap-6">
+            <div
+              class="flex items-center justify-between gap-3 pb-4 border-b-[3px] border-river-black"
+            >
+              <div class="flex items-center gap-2">
+                <img
+                  src="/Spidercarp-logo.webp"
+                  alt=""
+                  aria-hidden="true"
+                  width="28"
+                  height="28"
+                  class="h-7 w-auto object-contain"
+                />
+                <DrawerTitle
+                  class="font-display font-bold text-xl text-river-red uppercase tracking-tighter"
+                  translate="no"
+                >
+                  {SITE_META.brand}
+                </DrawerTitle>
+              </div>
+              <DrawerClose
+                aria-label="Cerrar menú de navegación"
+                class="min-w-[44px] min-h-[44px] inline-flex items-center justify-center border-[3px] border-river-black bg-river-white text-river-black hover:bg-river-black hover:text-river-white transition-colors duration-150 cursor-pointer"
+              >
+                <UiIcon name="close" class="w-5 h-5" />
+              </DrawerClose>
+            </div>
 
-      <Button
-        text="Unite al Stream"
-        variant="primary"
-        href={EXTERNAL_LINKS.kickChannel}
-        target="_blank"
-        onclick={toggleMenu}
-      >
-        {#snippet icon()}
-          <span
-            class="material-symbols-outlined"
-            aria-hidden="true"
-            style="font-variation-settings: 'FILL' 1;">play_arrow</span
-          >
-        {/snippet}
-      </Button>
+            <DrawerDescription class="sr-only">
+              Menú de secciones y redes sociales oficiales de Spidercarp.
+            </DrawerDescription>
+
+            <div class="flex flex-col divide-y divide-river-black/15">
+              {#each NAV_ITEMS as item (item.id)}
+                <a
+                  class="font-display text-xl uppercase tracking-tight py-3 min-h-[48px] flex items-center justify-between gap-3 transition-colors duration-150 {activeSection ===
+                  item.id
+                    ? 'text-river-red font-bold'
+                    : 'text-river-black font-semibold hover:text-river-red'}"
+                  href={item.href}
+                  aria-current={activeSection === item.id ? "location" : undefined}
+                  onclick={(e) => scrollToSection(item.id, e)}
+                >
+                  <span>{item.label}</span>
+                  <UiIcon name="arrow-right" class="w-5 h-5" />
+                </a>
+              {/each}
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-5 pt-6 border-t-[3px] border-river-black">
+            <SocialLinks
+              tone="dark"
+              size="md"
+              class="justify-between w-full"
+            />
+
+            <Button
+              text="Unite al Stream"
+              variant="primary"
+              href={EXTERNAL_LINKS.kickChannel}
+              target="_blank"
+              class="max-w-none w-full"
+              onclick={() => (isMenuOpen = false)}
+            >
+              {#snippet icon()}
+                <UiIcon name="play" class="w-5 h-5" />
+              {/snippet}
+            </Button>
+          </div>
+        </DrawerContent>
+      </Drawer>
     </div>
-  {/if}
-</nav>
+  </nav>
+</header>
