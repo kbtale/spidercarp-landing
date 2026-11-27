@@ -1,5 +1,6 @@
 <script lang="ts">
   import Button from "./Button.svelte";
+  import { COLLABORATIONS, EXTERNAL_LINKS } from "../data/site";
 
   let isModalOpen = $state(false);
 </script>
@@ -31,71 +32,32 @@
     </button>
 
     <div class="flex flex-col md:flex-row items-stretch mt-4">
-      <div
-        class="flex-1 flex items-start gap-4 text-left py-6 md:pr-8 border-b md:border-b-0 border-river-black/10"
-      >
-        <span
-          class="text-river-red font-display font-bold text-3xl leading-none"
-          >01</span
+      {#each COLLABORATIONS as colab, index (colab.number)}
+        <div
+          class="flex-1 flex items-start gap-4 text-left py-6 {index === 0
+            ? 'md:pr-8 border-b md:border-b-0'
+            : index === 1
+              ? 'md:px-8 border-b md:border-b-0 md:border-l'
+              : 'md:pl-8 md:border-l'} border-river-black/10"
         >
-        <div>
-          <h3
-            class="text-heading font-bold text-river-black uppercase tracking-tight"
+          <span
+            class="text-river-red font-display font-bold text-3xl leading-none"
+            >{colab.number}</span
           >
-            Discords con BocaEnLaCopa
-          </h3>
-          <p
-            class="text-subheading text-on-surface text-sm opacity-80 mt-2 leading-relaxed"
-          >
-            El clásico del stream. Debates picantes, chicanas y mucho folklore
-            del fútbol argentino.
-          </p>
+          <div>
+            <h3
+              class="text-heading font-bold text-river-black uppercase tracking-tight"
+            >
+              {colab.title}
+            </h3>
+            <p
+              class="text-subheading text-on-surface text-sm opacity-80 mt-2 leading-relaxed"
+            >
+              {colab.description}
+            </p>
+          </div>
         </div>
-      </div>
-
-      <div
-        class="flex-1 flex items-start gap-4 text-left py-6 md:px-8 border-b md:border-b-0 md:border-l border-river-black/10"
-      >
-        <span
-          class="text-river-red font-display font-bold text-3xl leading-none"
-          >02</span
-        >
-        <div>
-          <h3
-            class="text-heading font-bold text-river-black uppercase tracking-tight"
-          >
-            Invitados Especiales
-          </h3>
-          <p
-            class="text-subheading text-on-surface text-sm opacity-80 mt-2 leading-relaxed"
-          >
-            Figuras y streamers de la escena se suman a la mesa para hablar del
-            Más Grande.
-          </p>
-        </div>
-      </div>
-
-      <div
-        class="flex-1 flex items-start gap-4 text-left py-6 md:pl-8 md:border-l border-river-black/10"
-      >
-        <span
-          class="text-river-red font-display font-bold text-3xl leading-none"
-          >03</span
-        >
-        <div>
-          <h3
-            class="text-heading font-bold text-river-black uppercase tracking-tight"
-          >
-            Entrevistas y opiniones
-          </h3>
-          <p
-            class="text-subheading text-on-surface text-sm opacity-80 mt-2 leading-relaxed"
-          >
-            Charlas picantes, análisis tácticos exhaustivos y reflexiones
-            honestas sobre el día a día institucional y futbolístico de River.
-          </p>
-        </div>
-      </div>
+      {/each}
     </div>
   </div>
 
@@ -116,7 +78,7 @@
       <Button
         text="Mirar en YouTube"
         variant="primary"
-        href="https://www.youtube.com/playlist?list=PLLMvtaKe9aBPrDWuzzAl6d4iTDwgRzfjS"
+        href={EXTERNAL_LINKS.youtubePlaylist}
         target="_blank"
       >
         {#snippet icon()}
@@ -133,10 +95,10 @@
         class="w-full aspect-video border-[3px] border-river-black bg-river-black overflow-hidden shadow-lg"
       >
         <iframe
-          src="https://www.youtube.com/embed/videoseries?list=PLLMvtaKe9aBPrDWuzzAl6d4iTDwgRzfjS"
+          src={EXTERNAL_LINKS.youtubeEmbed}
           class="w-full h-full border-none"
           allowfullscreen
-          title="Paladar Riverplatense YouTube Playlist"
+          title="Lista de reproducción Paladar Riverplatense en YouTube"
         >
         </iframe>
       </div>
