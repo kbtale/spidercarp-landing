@@ -8,6 +8,7 @@
     DialogTitle,
   } from "@ui-sdk/svelte/dialog";
   import Button from "./Button.svelte";
+  import LazyEmbed from "./LazyEmbed.svelte";
   import UiIcon from "./UiIcon.svelte";
   import { COLLABORATIONS, EXTERNAL_LINKS } from "../data/site";
 
@@ -81,7 +82,7 @@
   <div
     class="grid-12 items-center font-display pt-12 sm:pt-16 border-t-[3px] border-river-black/15 mt-8 sm:mt-12"
   >
-    <div class="col-span-12 md:col-span-6 order-2 md:order-1 min-w-0">
+    <div class="col-span-12 lg:col-span-6 order-2 lg:order-1 min-w-0">
       <h3
         class="font-display font-bold text-display text-river-black uppercase leading-none mb-4"
       >
@@ -105,18 +106,15 @@
       </Button>
     </div>
 
-    <div class="col-span-12 md:col-span-6 order-1 md:order-2">
-      <div
-        class="w-full aspect-video border-[3px] border-river-black bg-river-black overflow-hidden shadow-[6px_6px_0_#000]"
-      >
-        <iframe
-          src={EXTERNAL_LINKS.youtubeEmbed}
-          class="w-full h-full border-none"
-          allowfullscreen
-          title="Lista de reproducción Paladar Riverplatense en YouTube"
-        >
-        </iframe>
-      </div>
+    <div class="col-span-12 lg:col-span-6 order-1 lg:order-2">
+      <LazyEmbed
+        src={EXTERNAL_LINKS.youtubeEmbed}
+        title="Lista de reproducción Paladar Riverplatense en YouTube"
+        provider="YouTube"
+        fallbackUrl={EXTERNAL_LINKS.youtubePlaylist}
+        fallbackCta="Abrir playlist en YouTube"
+        fallbackDescription="Mirá todos los programas completos de Paladar Riverplatense directo en YouTube."
+      />
     </div>
   </div>
 </section>
